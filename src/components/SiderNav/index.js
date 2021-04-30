@@ -3,87 +3,82 @@ import CustomMenu from "../CustomMenu/index";
 
 const menus = [
   {
-    title: '首页',
+    title: '高校人事管理系统',
     icon: 'home',
     key: '/home'
   },
   {
-    title: '基本组件',
+    title: '基本组信息管理件',
     icon: 'laptop',
     key: '/home/general',
     subs: [
-      {key: '/home/general/button', title: '按钮', icon: '',},
-      {key: '/home/general/icon', title: '图标', icon: '',},
+      {key: '/home/general/button', title: '个人信息', icon: '',
+      subs: [
+        {key: '/home/general/button', title: '个人信息', icon: '',},
+        {key: '/home/general/icon', title: '学习经历', icon: '',},
+        {key: '/home/general/icon', title: '进修经历', icon: '',}
+      ]
+    },
+      {key: '/home/general/icon', title: '学习经历', icon: '',},
+      {key: '/home/general/icon', title: '进修经历', icon: '',},
+      {key: '/home/general/icon', title: '工作经历', icon: '',},
+      {key: '/home/general/icon', title: '专业证书', icon: '',},
     ]
   },
   {
-    title: '导航组件',
+    title: '招聘管理',
     icon: 'bars',
     key: '/home/navigation',
     subs: [
-      {key: '/home/navigation/dropdown', title: '下拉菜单', icon: ''},
-      {key: '/home/navigation/menu', title: '导航菜单', icon: ''},
-      {key: '/home/navigation/steps', title: '步骤条', icon: ''},
+      {key: '/home/navigation/dropdown', title: '招聘公告', icon: ''},
+      {key: '/home/navigation/menu', title: '人员注册', icon: ''},
+      {key: '/home/navigation/steps', title: '个人简历', icon: ''},
+      {key: '/home/navigation/steps', title: '应聘须知', icon: ''},
     ]
   },
   {
-    title: '输入组件',
+    title: '进修管理',
     icon: 'edit',
     key: '/home/entry',
     subs: [
       {
-        key: '/home/entry/form',
-        title: '表单',
+        key: '/home/entry/upload',
+        title: '进修公告',
         icon: '',
-        subs: [
-          {key: '/home/entry/form/basic-form', title: '基础表单', icon: ''},
-          {key: '/home/entry/form/step-form', title: '分步表单', icon: ''}
-        ]
       },
-      {key: '/home/entry/upload', title: '上传', icon: ''},
+      {key: '/home/entry/upload1', title: '岗前培训', icon: ''},
+      {key: '/home/entry/upload2', title: '教师资格', icon: ''},
+      {key: '/home/entry/upload3', title: '外校进修', icon: ''},
+      {key: '/home/entry/upload4', title: '出国进修', icon: ''},
+      {key: '/home/entry/upload5', title: '进修通知', icon: ''},
     ]
   },
   {
-    title: '显示组件',
-    icon: 'desktop',
-    key: '/home/display',
-    subs: [
-      {key: '/home/display/carousel', title: '轮播图', icon: ''},
-      {key: '/home/display/collapse', title: '折叠面板', icon: ''},
-      {key: '/home/display/list', title: '列表', icon: ''},
-      {key: '/home/display/table', title: '表格', icon: ''},
-      {key: '/home/display/tabs', title: '标签页', icon: '',},
-    ]
-  },
-  {
-    title: '反馈组件',
+    title: '离校管理',
     icon: 'message',
     key: '/home/feedback',
     subs: [
-      {key: '/home/feedback/modal', title: '对话框', icon: '',},
-      {key: '/home/feedback/notification', title: '通知提醒框', icon: ''},
-      {key: '/home/feedback/spin', title: '加载中', icon: '',}
+      {key: '/home/feedback/modal', title: '离校申请', icon: '',},
+      {key: '/home/feedback/notification', title: '离校通知', icon: ''},
+      {key: '/home/feedback/spin', title: '离校信息', icon: '',}
     ]
   },
   {
-    title: '其它',
+    title: '系统管理',
     icon: 'bulb',
     key: '/home/other',
     subs:[
-      {key: '/home/other/animation', title: '动画', icon: '',},
-      {key: '/home/other/gallery', title: '画廊', icon: '',},
-      {key:'/home/other/draft',title:'富文本',icon:''},
-      {key:'/home/other/chart',title:'图表',icon:''},
-      {key:'/home/other/loading',title:'加载动画',icon:''},
-      {key:'/home/other/404',title:'404',icon:''},
-      {key:'/home/other/springText',title:'弹性文字',icon:''},
+      {key: '/home/other/animation', title: '部门信息', icon: '',},
+      {key: '/home/other/gallery', title: '密码修改', icon: '',},
+      {key:'/home/other/draft',title:'日志查询',icon:''},
+     
     ]
   },
-  {
-    title: '关于',
-    icon: 'info-circle-o',
-    key: '/home/about'
-  }
+  // {
+  //   title: '关于',
+  //   icon: 'info-circle-o',
+  //   key: '/home/about'
+  // }
 ]
 
 

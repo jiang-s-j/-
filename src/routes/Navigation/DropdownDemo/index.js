@@ -1,76 +1,32 @@
 import React from 'react'
-import {Card, Menu, Row, Col, Dropdown, Icon, message, Button} from 'antd'
+import { Card } from 'antd'
 import CustomBreadcrumb from '../../../components/CustomBreadcrumb/index'
 import TypingCard from '../../../components/TypingCard'
 
 
 class DropdownDemo extends React.Component {
-  handleMenuClick(e) {
-    message.info(`Click on menu ${e.key} item.`)
+  constructor(props) {
+    super(props)
+    this.state = {
+
+    }
   }
 
   render() {
-    const menu = (
-      <Menu onClick={this.handleMenuClick}>
-        <Menu.Item key="1">1st item</Menu.Item>
-        <Menu.Item key="2">2nd item</Menu.Item>
-        <Menu.Item key="3">3rd item</Menu.Item>
-      </Menu>
-    )
-    const menu2 = (
-      <Menu>
-        <Menu.Item>1st menu item</Menu.Item>
-        <Menu.Item>2nd menu item</Menu.Item>
-        <Menu.SubMenu title="sub menu">
-          <Menu.Item>3rd menu item</Menu.Item>
-          <Menu.Item>4th menu item</Menu.Item>
-        </Menu.SubMenu>
-        <Menu.SubMenu title="disabled sub menu" disabled>
-          <Menu.Item>5d menu item</Menu.Item>
-          <Menu.Item>6th menu item</Menu.Item>
-        </Menu.SubMenu>
-      </Menu>
-    )
-    const cardContent = '当页面上的操作命令过多时，用此组件可以收纳操作元素。点击或移入触点，会出现一个下拉菜单。可在列表中进行选择，并执行相应的命令。'
     return (
       <div>
-        <CustomBreadcrumb arr={['导航','下拉菜单']}/>
-        <TypingCard source={cardContent}/>
-        <Row gutter={16}>
-          <Col span={12}>
-            <Card bordered={false} className='card-item'>
-              <Dropdown overlay={menu}><a>hover me <Icon type='down'/></a></Dropdown>&emsp;
-              <Dropdown overlay={menu}><Button>Button<Icon type='down'/></Button></Dropdown>&emsp;
-              <Dropdown overlay={menu} trigger={['click']}><a>click me <Icon type='down'/></a></Dropdown>&emsp;
-            </Card>
-            <Card bordered={false} className='card-item'>
-              <Dropdown overlay={menu2} trigger={['click']}>
-                <a href="">click menu <Icon type="down"/></a>
-              </Dropdown>&emsp;&emsp;
-              <Dropdown overlay={menu2} trigger={['click']}>
-                <Button>click menu <Icon type="down"/></Button>
-              </Dropdown>
-            </Card>
-          </Col>
-          <Col span={12}>
-            <Card bordered={false} className='card-item'>
-              <Dropdown overlay={menu2}><a href="">Cascading menu <Icon type="down"/></a></Dropdown>&emsp;&emsp;
-              <Dropdown overlay={menu2}><Button>Cascading menu <Icon type="down"/></Button></Dropdown>
-            </Card>
-            <Card bordered={false} className='card-item'>
-              <p>
-                <Dropdown overlay={menu} placement="bottomLeft"><Button>bottomLeft</Button></Dropdown>&emsp;
-                <Dropdown overlay={menu} placement="bottomCenter"><Button>bottomCenter</Button></Dropdown>&emsp;
-                <Dropdown overlay={menu} placement="bottomRight"><Button>bottomRight</Button></Dropdown>
-              </p>
-              <div>
-                <Dropdown overlay={menu} placement="topLeft"><Button>topLeft</Button></Dropdown>&emsp;
-                <Dropdown overlay={menu} placement="topCenter"><Button>topCenter</Button></Dropdown>&emsp;
-                <Dropdown overlay={menu} placement="topRight"><Button>topRight</Button></Dropdown>
-              </div>
-            </Card>
-          </Col>
-        </Row>
+        <Card title="招聘公告" extra={<a href="#">More</a>} style={{ width: '100%' }}>
+          <p>岗位名称：数学教师</p>
+          <p>需求人数：2人</p>
+          <p>专业要求：数学专业</p>
+          <p>学历要求：硕士及以上</p>
+          <p>岗位描述：<br></br>
+          1. 本科及以上学历，有教学经验者优先；<br></br>
+          2. 熟悉高中数学课程体系，并对历年高考试题有所了解；<br></br>
+          3. 普通话标准，专业知识扎实，表达能力强，思路清晰，能胜任高中数学教学工作；<br></br>
+          4. 热爱教师工作，责任心强，有团队合作意识，富有亲和力，协调与沟通能力强。<br></br>
+          </p>
+        </Card>
       </div>
     )
   }

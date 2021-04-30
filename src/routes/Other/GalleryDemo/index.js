@@ -1,193 +1,313 @@
-import React from 'react'
-import Shuffle from 'shufflejs'
-import CustomBreadcrumb from '../../../components/CustomBreadcrumb/index'
-import TypingCard from '../../../components/TypingCard'
-import {Card,Button,Modal,BackTop} from 'antd'
-
-class GalleryDemo extends React.Component{
-  state = {
-    image:'',
-    visible:false,
-    photos : [
+import React, { useState } from 'react';
+import { Form, Input, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+const { Option } = Select;
+const residences = [
+  {
+    value: 'zhejiang',
+    label: 'Zhejiang',
+    children: [
       {
-        groups:['nature'],
-        style:'itemOne',
-        size:'1x1',
-        src:require('./img/01.jpeg')
+        value: 'hangzhou',
+        label: 'Hangzhou',
+        children: [
+          {
+            value: 'xihu',
+            label: 'West Lake',
+          },
+        ],
       },
-      {
-        groups:['nature'],
-        style:'itemOne',
-        size:'1x1',
-        src:require('./img/02.jpeg')
-      },
-      {
-        groups:['nature'],
-        style:'itemOne',
-        size:'1x1',
-        src:require('./img/03.jpeg')
-      },
-      {
-        groups:['scenery'],
-        style:'itemOne',
-        size:'1x1',
-        src:require('./img/04.jpeg')
-      },
-      {
-        groups:['scenery'],
-        style:'itemTwoRow',
-        size:'1x2',
-        src:require('./img/05.jpeg')
-      },
-      {
-        groups:['nature'],
-        style:'itemOne',
-        size:'1x1',
-        src:require('./img/06.jpeg')
-      },
-      {
-        groups:['nature','scenery'],
-        style:'itemTwoCol',
-        size:'2x1',
-        src:require('./img/07.jpeg')
-      },
-      {
-        groups:['other'],
-        style:'itemOne',
-        size:'1x1',
-        src:require('./img/08.jpeg')
-      },
-      {
-        groups:['other'],
-        style:'itemOne',
-        size:'1x1',
-        src:require('./img/09.jpeg')
-      },
-      {
-        groups:['nature'],
-        style:'itemOne',
-        size:'1x1',
-        src:require('./img/10.jpeg')
-      },
-      {
-        groups:['other'],
-        style:'itemOne',
-        size:'1x1',
-        src:require('./img/11.jpeg')
-      },
-      {
-        groups:['other','scenery'],
-        style:'itemOne',
-        size:'1x1',
-        src:require('./img/12.jpeg')
-      },
-    ]
-  }
-  componentDidMount(){
-    this.shuffle = new Shuffle(this.shuffleDemo, {
-      itemSelector: '.photo-item',
-      sizer: this.sizer,
-    });
-  }
-  componentDidUpdate() {
-    // this.shuffle.resetItems();
-  }
-
-  componentWillUnmount() {
-    this.shuffle.destroy();
-    this.shuffle = null;
-  }
-  _whenPhotosLoaded(photos) {
-    return Promise.all(photos.map(photo => new Promise((resolve) => {
-      const image = document.createElement('img');
-      image.src = photo.src;
-
-      if (image.naturalWidth > 0 || image.complete) {
-        resolve(photo);
-      } else {
-        image.onload = () => {
-          resolve(photo);
-        };
-      }
-    })));
-  }
-  showImg = (src)=>{
-    this.setState({
-      visible:true,
-      image:src
-    })
-  }
-
-  render(){
-    const cardContent = `<ul class='card-ul'}>
-      <li>快速 - 在初始化，排序或过滤器上只有一个强制同步布局（又称回流</li>
-      <li>回应（尝试调整窗口大小！）</li>
-      <li>按组过滤项目</li>
-      <li>项目可以有多个组，大小不同</li>
-      <li>排序项目</li>
-      <li>高级过滤（如搜索）</li>
-    </ul>`
-    return (
-      <div>
-        <CustomBreadcrumb arr={['其它','画廊']}/>
-        <TypingCard title='shufflejs插件' source={cardContent} height={290}/>
-        <Card bordered={false}>
-          <Button style={{marginRight:20}} onClick={()=>this.shuffle.filter()}>全部</Button>
-          <Button style={{marginRight:20}} onClick={()=>this.shuffle.filter('scenery')}>风景</Button>
-          <Button style={{marginRight:20}} onClick={()=>this.shuffle.filter('nature')}>自然</Button>
-          <Button style={{marginRight:20}} onClick={()=>this.shuffle.filter('other')}>其他</Button>
-        </Card>
-        <div style={{padding: '20px 32px',minHeight:500}}>
-          <div ref={(div)=>this.shuffleDemo=div}>
-            {
-              this.state.photos.map((item,index)=>(
-                <div
-                  className='photo-item'
-                  data-groups={JSON.stringify(item.groups)}
-                  onClick={()=>this.showImg(item.src)}
-                  style={styles[item.style]} key={item.src}>
-                  <div className={'aspect aspect--'+item.size}>
-                    <div className='aspect__inner'>
-                      <img src={item.src} alt="" width='100%' height='100%'/>
-                    </div>
-                  </div>
-                </div>
-              ))
-            }
-            <div style={{width:'8.33333%'}}  ref={(div)=>this.sizer = div}/>
-          </div>
-        </div>
-        <Modal
-          footer={null} closable={false}
-          visible={this.state.visible}
-          wrapClassName="vertical-center-modal"
-          onCancel={()=>this.setState({visible:false})}>
-          <img src={this.state.image} alt="" width='100%'/>
-        </Modal>
-        <BackTop visibilityHeight={200} style={{right: 50}}/>
-      </div>
-    )
-  }
-}
-
-const styles = {
-  itemOne:{
-    width:'25%',
-    marginBottom:8,
-    padding:'0 4px'
-
+    ],
   },
-  itemTwoCol:{
-    width:'50%',
-    marginBottom:8,
-    padding:'0 4px'
+  {
+    value: 'jiangsu',
+    label: 'Jiangsu',
+    children: [
+      {
+        value: 'nanjing',
+        label: 'Nanjing',
+        children: [
+          {
+            value: 'zhonghuamen',
+            label: 'Zhong Hua Men',
+          },
+        ],
+      },
+    ],
   },
-  itemTwoRow:{
-    width:'25%',
-    marginBottom:8,
-    padding:'0 4px'
-  }
+];
+const formItemLayout = {
+  labelCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 2,
+    },
+  },
+  wrapperCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 16,
+    },
+  },
+};
+const tailFormItemLayout = {
+  wrapperCol: {
+    xs: {
+      span: 24,
+      offset: 0,
+    },
+    sm: {
+      span: 16,
+      offset: 8,
+    },
+  },
+};
 
-}
+const RegistrationForm = () => {
+  // const [form] = Form.useForm();
 
-export default GalleryDemo
+  const onFinish = (values) => {
+    console.log('Received values of form: ', values);
+  };
+
+  const prefixSelector = (
+    <Form.Item name="prefix" noStyle>
+      <Select
+        style={{
+          width: 70,
+        }}
+      >
+        <Option value="86">+86</Option>
+        <Option value="87">+87</Option>
+      </Select>
+    </Form.Item>
+  );
+  const [autoCompleteResult, setAutoCompleteResult] = useState([]);
+
+  const onWebsiteChange = (value) => {
+    if (!value) {
+      setAutoCompleteResult([]);
+    } else {
+      setAutoCompleteResult(['.com', '.org', '.net'].map((domain) => `${value}${domain}`));
+    }
+  };
+
+  const websiteOptions = autoCompleteResult.map((website) => ({
+    label: website,
+    value: website,
+  }));
+  return (
+    <Form
+      {...formItemLayout}
+      // form={form}
+      name="register"
+      onFinish={onFinish}
+      initialValues={{
+        residence: ['zhejiang', 'hangzhou', 'xihu'],
+        prefix: '86',
+      }}
+      scrollToFirstError
+    >
+      <Form.Item
+        name="email"
+        label="姓名"
+        rules={[
+          {
+            type: 'email',
+            message: 'The input is not valid E-mail!',
+          },
+          {
+            required: true,
+            message: 'Please input your E-mail!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        name="email"
+        label="职工号"
+        rules={[
+          {
+            type: 'email',
+            message: 'The input is not valid E-mail!',
+          },
+          {
+            required: true,
+            message: 'Please input your E-mail!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      
+      <Form.Item
+        name="email"
+        label="原密码"
+        rules={[
+          {
+            type: 'email',
+            message: 'The input is not valid E-mail!',
+          },
+          {
+            required: true,
+            message: 'Please input your E-mail!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        name="password"
+        label="新密码"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your password!',
+          },
+        ]}
+        hasFeedback
+      >
+        <Input.Password />
+      </Form.Item>
+
+      <Form.Item
+        name="confirm"
+        label="确认新密码"
+        dependencies={['password']}
+        hasFeedback
+        rules={[
+          {
+            required: true,
+            message: 'Please confirm your password!',
+          },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue('password') === value) {
+                return Promise.resolve();
+              }
+
+              return Promise.reject(new Error('The two passwords that you entered do not match!'));
+            },
+          }),
+        ]}
+      >
+        <Input.Password />
+      </Form.Item>
+
+      {/* <Form.Item
+        name="nickname"
+        label="Nickname"
+        tooltip="What do you want others to call you?"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your nickname!',
+            whitespace: true,
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        name="residence"
+        label="Habitual Residence"
+        rules={[
+          {
+            type: 'array',
+            required: true,
+            message: 'Please select your habitual residence!',
+          },
+        ]}
+      >
+        <Cascader options={residences} />
+      </Form.Item> */}
+
+      {/* <Form.Item
+        name="phone"
+        label="Phone Number"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your phone number!',
+          },
+        ]}
+      >
+        <Input
+          addonBefore={prefixSelector}
+          style={{
+            width: '100%',
+          }}
+        />
+      </Form.Item> */}
+
+      {/* <Form.Item
+        name="website"
+        label="Website"
+        rules={[
+          {
+            required: true,
+            message: 'Please input website!',
+          },
+        ]}
+      >
+        <AutoComplete options={websiteOptions} onChange={onWebsiteChange} placeholder="website">
+          <Input />
+        </AutoComplete>
+      </Form.Item>
+
+      <Form.Item label="Captcha" extra="We must make sure that your are a human.">
+        <Row gutter={8}>
+          <Col span={12}>
+            <Form.Item
+              name="captcha"
+              noStyle
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input the captcha you got!',
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Button>Get captcha</Button>
+          </Col>
+        </Row>
+      </Form.Item>
+
+      <Form.Item
+        name="agreement"
+        valuePropName="checked"
+        rules={[
+          {
+            validator: (_, value) =>
+              value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement')),
+          },
+        ]}
+        {...tailFormItemLayout}
+      >
+        <Checkbox>
+          I have read the <a href="">agreement</a>
+        </Checkbox>
+      </Form.Item> */}
+      <Form.Item {...tailFormItemLayout}>
+        <Button type="primary" htmlType="submit">
+          确认
+        </Button>
+      </Form.Item>
+    </Form>
+  );
+};
+
+
+export default RegistrationForm 

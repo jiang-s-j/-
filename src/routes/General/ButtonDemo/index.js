@@ -1,108 +1,188 @@
-import React from 'react'
-import {Button, Row, Col, Card, Icon, Radio, Dropdown, Menu, message} from 'antd'
-import CustomBreadcrumb from '../../../components/CustomBreadcrumb/index'
-import TypingCard from '../../../components/TypingCard'
+import React, { useState } from 'react'
+import {Table, Modal, Form,Input} from 'antd'
 
-class ButtonDemo extends React.Component {
-  state = {
-    size: 'default'
-  }
-  handleSizeChange = (e) => {
-    this.setState({
-      size: e.target.value,
-      loading: false,
-      iconLoading: false
-    })
-  }
 
-  handleMenuClick(e) {
-    message.info(`Click on menu ${e.key} item.`)
-  }
+const ButtonDemo = (props) => {
 
-  render() {
-    const {size, loading, iconLoading} = this.state
-    const menu = (
-      <Menu onClick={this.handleMenuClick}>
-        <Menu.Item key="1">1st item</Menu.Item>
-        <Menu.Item key="2">2nd item</Menu.Item>
-        <Menu.Item key="3">3rd item</Menu.Item>
-      </Menu>
-    );
-    const cardContent = `标记了一个（或封装一组）操作命令，响应用户点击行为，触发相应的业务逻辑。`
-    return (
-      <div>
-        <CustomBreadcrumb arr={['基本','按钮']}/>
-        <TypingCard source={cardContent} />
-        <Row gutter={16}>
-          <Col span={12}>
-            <Card bordered={false} className='card-item'>
-              <Button type="primary">Primary</Button>&emsp;
-              <Button>Default</Button>&emsp;
-              <Button type="dashed">Dashed</Button>&emsp;
-              <Button type="danger">Danger</Button>
-            </Card>
-            <Card bordered={false} className='card-item'>
-              <Radio.Group value={this.state.size} onChange={this.handleSizeChange}>
-                <Radio.Button value="large">Large</Radio.Button>
-                <Radio.Button value="default">Default</Radio.Button>
-                <Radio.Button value="small">Small</Radio.Button>
-              </Radio.Group>
-              <p style={{marginTop: '1em'}}>
-                <Button type="primary" size={size}>Primary</Button>&emsp;
-                <Button size={this.state.size}>Default</Button>&emsp;
-                <Button type="dashed" size={size}>Dashed</Button>&emsp;
-                <Button type="danger" size={size}>Danger</Button>
-              </p>
-              <p>
-                <Button shape='circle' type='primary' icon="download" size={size}/>&emsp;
-                <Button type="primary" icon="download" size={size}>Download</Button>
-              </p>
-              <div>
-                <Button.Group size={size}>
-                  <Button><Icon type="left"/>Backward</Button>&emsp;
-                  <Button>Forward<Icon type="right"/></Button>
-                </Button.Group>
-              </div>
-            </Card>
-          </Col>
-          <Col span={12}>
-            <Card bordered={false} className='card-item'>
-              <p>
-                <Button type="primary" shape="circle" icon="search"/>&emsp;
-                <Button type="primary" icon="search">Search</Button>&emsp;
-                <Button shape="circle" icon="search"/>&emsp;
-                <Button icon="search">Search</Button>&emsp;
-              </p>
-              <p style={{marginBottom: 0}}>
-                <Button shape="circle" icon="search"/>&emsp;
-                <Button icon="search">Search</Button>&emsp;
-                <Button type="dashed" shape="circle" icon="search"/>&emsp;
-                <Button type="dashed" icon="search">Search</Button>
-              </p>
-            </Card>
-            <Card bordered={false} className='card-item'>
-              <Button type="primary">primary</Button>&emsp;
-              <Button>secondary</Button>&emsp;
-              <Dropdown overlay={menu}>
-                <Button>Button<Icon type='down'/></Button>
-              </Dropdown>
-            </Card>
-            <Card bordered={false} className='card-item'>
-              <p>
-                <Button loading type='primary'>Loading</Button>&emsp;
-                <Button type='primary' loading shape='circle'/>
-              </p>
-              <div>
-                <Button loading={loading} onClick={() => this.setState({loading: true})}>Click me</Button>&emsp;
-                <Button loading={iconLoading} onClick={() => this.setState({iconLoading: true})} icon='poweroff'>Click
-                  me</Button>
-              </div>
-            </Card>
-          </Col>
-        </Row>
-      </div>
-    )
+  const [modalShow,setModalShow] = useState(false)
+  const handleOk = () => {
+    setModalShow(true)
   }
+  
+  const handleCancel = () => {
+    setModalShow(false)
+  }
+  
+  const columns = [
+    {
+      title: '姓名',
+      dataIndex: 'name',
+      key: 'name',
+      render: text => <a>{text}</a>,
+    },
+    {
+      title: '性别',
+      dataIndex: 'age',
+      key: 'age',
+    },
+    {
+      title: '出生日期',
+      dataIndex: 'address',
+      key: 'address',
+    },
+    {
+      title: '身份证号',
+      dataIndex: 'address',
+      key: 'address',
+    },
+    {
+      title: '文化程度',
+      dataIndex: 'wenhuachendu',
+      key: 'wenhuachendu',
+    },
+    {
+      title: '社会面貌',
+      dataIndex: 'sheHuiMianMAao',
+      key: 'sheHuiMianMAao',
+    },
+    {
+      title: '联系号码',
+      dataIndex: 'phone',
+      key: 'phone',
+    },
+    {
+      title: '家庭住址',
+      dataIndex: 'homeAdress',
+      key: 'homeAdress',
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (text, record) => (
+        <div size="middle">
+          <a onClick={handleOk}>修改</a>
+          <a>删除</a>
+        </div>
+      ),
+    },
+  ];
+  
+  const data = [
+    {
+      key: '1',
+      name: '王二',
+      age: '男',
+      address: '1999-5-20',
+      tags: ['nice', 'developer'],
+      wenhuachendu: '博士',
+      sheHuiMianMAao:'党员',
+      phone: '1586245444554',
+      homeAdress: '重庆市'
+    },
+    {
+      key: '2',
+      name: '张三',
+      age: '女',
+      address: '1999-5-20',
+      tags: ['nice', 'developer'],
+      wenhuachendu: '博士',
+      sheHuiMianMAao:'党员',
+      phone: '1586245444554',
+      homeAdress: '重庆市'
+    },
+    {
+      key: '3',
+      name: '李四',
+      age: '男',
+      address: '1999-5-20',
+      tags: ['nice', 'developer'],
+      wenhuachendu: '博士',
+      sheHuiMianMAao:'党员',
+      phone: '1586245444554',
+      homeAdress: '重庆市'
+    },
+  ];
+  
+  const layout = {
+    labelCol: { span: 4 },
+    wrapperCol: { span: 16 },
+  };
+  const tailLayout = {
+    wrapperCol: { offset: 8, span: 16 },
+  };
+
+
+
+
+  return (
+    <div>
+    <Table columns={columns} dataSource={data}></Table>
+    <Modal 
+      title='修改信息' 
+      visible={modalShow}
+      onOk={handleOk} 
+      onCancel={handleCancel}
+    >
+      <Form
+        {...layout}
+        name="basic"
+        initialValues={{ remember: true }}
+      >
+        <Form.Item 
+        label="姓名"
+        name="username"
+        rules={[{ required: true, message: 'Please input your username!' }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item 
+        label="性别"
+        name="username"
+        rules={[{ required: true, message: 'Please input your username!' }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item 
+        label="出生日期"
+        name="username"
+        rules={[{ required: true, message: 'Please input your username!' }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item 
+        label="身份证号"
+        name="username"
+        rules={[{ required: true, message: 'Please input your username!' }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item 
+        label="文化程度"
+        name="username"
+        rules={[{ required: true, message: 'Please input your username!' }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item 
+        label="社会面貌"
+        name="username"
+        rules={[{ required: true, message: 'Please input your username!' }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item 
+        label="联系号码"
+        name="username"
+        rules={[{ required: true, message: 'Please input your username!' }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item 
+        label="家庭住址"
+        name="username"
+        rules={[{ required: true, message: 'Please input your username!' }]}>
+          <Input />
+        </Form.Item>
+      </Form>
+    </Modal>
+
+    </div>
+  )
 }
+
+
 
 export default ButtonDemo

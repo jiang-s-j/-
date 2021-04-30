@@ -51,6 +51,9 @@ class ContentMain extends React.Component {
         <Switch>
           <PrivateRoute exact path='/home' component={Home}/>
 
+
+          
+
           <PrivateRoute exact path='/home/general/button' component={ButtonDemo}/>
           <PrivateRoute exact path='/home/general/icon' component={IconDemo}/>
 
